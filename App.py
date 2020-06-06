@@ -21,9 +21,11 @@ class App:
             capture_result = self.camera.detect()
 
             if capture_result == Detected.VALID:
-                print('yeeey I know you')
+                # Play the welcome message
+                # ignite green light
             elif capture_result == Detected.INVALID:
-                print('I dunno man, seems fishy')
+                # Play the alarm
+                # ignite red light
             else:
-                print('you expected a result, BUT IT WAS ME....DIO')
+                # no user detected.
 

@@ -18,7 +18,6 @@ class Camera:
         self.__face_names = []
 
         self.__initialize_faces()
-        print('Camera initialized')
 
     def __initialize_faces(self):
         """
@@ -27,22 +26,18 @@ class Camera:
         :return: None
         """
 
-        print('Started initializing the faces')
         list_of_files = [f for f in glob.glob(f"{Camera.path}*.jpg")]
         number_of_known_faces = len(list_of_files)
         names = list_of_files.copy()
 
         for i in range(number_of_known_faces):
             globals()['image_{}'.format(i)] = face_recognition.load_image_file(list_of_files[i])
-            globals()['image_encoding_{}'.format(i)] = face_recognition.face_encodings(globals()['image_{}'.format(i)])[
-                0]
+            globals()['image_encoding_{}'.format(i)] = face_recognition.face_encodings(globals()['image_{}'.format(i)])[0]
             self.__known_face_encodings.append(globals()['image_encoding_{}'.format(i)])
 
             # Create array of known names
             names[i] = names[i].replace("known_people/", "")
             self.__known_face_names.append(names[i])
-
-        print('finished')
 
     def detect(self):
         """
