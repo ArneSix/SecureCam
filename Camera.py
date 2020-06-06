@@ -3,6 +3,7 @@ import cv2
 import os
 import face_recognition
 import numpy as np
+from Detected import Detected
 
 
 class Camera:
@@ -17,6 +18,7 @@ class Camera:
         self.__face_names = []
 
         self.__initialize_faces()
+        print('Camera initialized')
 
     def __initialize_faces(self):
         """
@@ -25,6 +27,7 @@ class Camera:
         :return: None
         """
 
+        print('Started initializing the faces')
         list_of_files = [f for f in glob.glob(f"{Camera.path}*.jpg")]
         number_of_known_faces = len(list_of_files)
         names = list_of_files.copy()
@@ -39,10 +42,12 @@ class Camera:
             names[i] = names[i].replace("known_people/", "")
             self.__known_face_names.append(names[i])
 
+        print('finished')
+
     def detect(self):
         """
         Detects the faces and returns a bool if the face is known.
-        :return: bool
+        :return: Detected
         """
         face_encodings = []
 
@@ -55,12 +60,11 @@ class Camera:
             self.__face_locations = face_recognition.face_locations(rgb_small_frame)
             face_encodings = face_recognition.face_encodings(rgb_small_frame, self.__face_locations)
 
-            face_names = []
+            if not self.__face_locations:
+                return Detected.EMPTY
 
             for face_encoding in face_encodings:
                 matches = face_recognition.compare_faces(self.__known_face_encodings, face_encoding)
-
-                name = None
 
                 face_distances = face_recognition.face_distance(self.__known_face_encodings, face_encoding)
 
@@ -70,6 +74,6 @@ class Camera:
                 best_match_index = np.argmin(face_distances)
 
                 if matches[best_match_index]:
-                    name = True
+                    return Detected.VALID
 
-                return not name
+                return Detected.INVALID
