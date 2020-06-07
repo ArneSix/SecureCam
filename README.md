@@ -16,7 +16,9 @@
  - numpy
  - cv2
  
- * if dlib fails you will have to install the vs build tools.
+ * Als dlib niet kan installeren zal je de vs-build tools moeten downloaden.
  
  ## Video
  
+
+[![Secumcam uitleg video](https://www.youtube.com/watch?v=3Td2GvPU0yg/0.jpg)](https://www.youtube.com/watch?v=3Td2GvPU0yg)
