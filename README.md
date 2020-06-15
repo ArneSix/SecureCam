@@ -22,4 +22,4 @@
  ## Video
  
 
-[![Secumcam uitleg video](https://youtu.be/99B_JOmdLb4)](https://youtu.be/99B_JOmdLb4)
+[![Secumcam demo video](https://youtu.be/99B_JOmdLb4)](https://youtu.be/99B_JOmdLb4)
