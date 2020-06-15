@@ -56,7 +56,7 @@ class Camera:
             face_encodings = face_recognition.face_encodings(rgb_small_frame, self.__face_locations)
 
             if not self.__face_locations:
-                return Detected.EMPTY
+                return Detected.INVALID
 
             for face_encoding in face_encodings:
                 matches = face_recognition.compare_faces(self.__known_face_encodings, face_encoding)

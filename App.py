@@ -1,3 +1,8 @@
+import time
+from multiprocessing import Process
+from pydub import AudioSegment
+from pydub.playback import play
+
 from Camera import Camera
 from GPIO import GPIO
 from Detected import Detected
@@ -6,11 +11,13 @@ from Detected import Detected
 class App:
     def __init__(self):
         self.button_state: bool = False
+
         self.gpio: GPIO = GPIO()
         self.gpio.bind_to(self.update_button_state)
-
         self.camera: Camera = Camera(video_device=0)
 
+        Process(target=self.gpio.run).start()
+        
     def update_button_state(self, button_state):
         self.button_state = button_state
 
@@ -21,11 +28,27 @@ class App:
             capture_result = self.camera.detect()
 
             if capture_result == Detected.VALID:
-                # Play the welcome message
-                # ignite green light
+                self.gpio.green_led_toggle()
+                
+                song = AudioSegment.from_mp3('./audio/granted.mp3')
+                play(song)
+                
+                self.gpio.green_led_toggle()
+
             elif capture_result == Detected.INVALID:
-                # Play the alarm
-                # ignite red light
+                self.gpio.red_led_toggle()
+                
+                song = AudioSegment.from_mp3('./audio/alarm.mp3')
+                play(song)
+                
+                self.gpio.red_led_toggle()
             else:
-                # no user detected.
+                self.gpio.red_led_toggle()
+                self.gpio.green_led_toggle()
+
+                song = AudioSegment.from_mp3('./audio/unknown.mp3')
+                play(song)
+
+                self.gpio.red_led_toggle()
+                self.gpio.green_led_toggle()
 

@@ -15,10 +15,11 @@
  - gpiozero
  - numpy
  - cv2
+ - pydub
  
  * Als dlib niet kan installeren zal je de vs-build tools moeten downloaden.
  
  ## Video
  
 
-[![Secumcam uitleg video](https://www.youtube.com/watch?v=3Td2GvPU0yg/0.jpg)](https://www.youtube.com/watch?v=3Td2GvPU0yg)
+[![Secumcam uitleg video](https://youtu.be/99B_JOmdLb4)](https://youtu.be/99B_JOmdLb4)
